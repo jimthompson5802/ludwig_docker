@@ -1,0 +1,31 @@
+#
+# Ludwig Docker image with full set of pre-requiste packages to support development activites:
+#   text features
+#   image features
+#   audio features
+#   visualizations
+#   model serving
+#   unit testing
+#
+
+#FROM intelaipg/intel-optimized-tensorflow:1.15.0-py3
+FROM tensorflow/tensorflow:1.15.2-py3
+#FROM tensorflow/tensorflow:latest-py3
+
+RUN apt-get -y update && apt-get -y install git libsndfile1
+RUN pip install jupyter nbconvert
+
+WORKDIR /app
+COPY . /app
+
+RUN pip install -r requirements_tf1.txt -r requirements_text.txt \
+          -r requirements_image.txt -r requirements_audio.txt \
+          -r requirements_serve.txt -r requirements_viz.txt \
+          -r requirements_test.txt \
+      &&  python setup.py install #pip install -e .
+
+RUN pip install mkdocs mkdocs-material
+
+WORKDIR /opt/project
+
+

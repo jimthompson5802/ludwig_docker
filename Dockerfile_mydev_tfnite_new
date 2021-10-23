@@ -1,0 +1,35 @@
+#
+# Ludwig Docker image with full set of pre-requiste packages to support development activites:
+#   text features
+#   image features
+#   audio features
+#   visualizations
+#   model serving
+#   unit testing
+#
+
+FROM ludwigai/ludwig:nightly
+
+RUN pip install mkdocs mkdocs-material
+
+
+# support porting to tf2 and understanding tensorflow_addons
+RUN apt-get -y install wget unzip graphviz
+RUN pip install pydot pydotplus graphviz
+RUN pip install nltk keras
+RUN pip install dill
+
+# pycharm plug-in to enable capturing exception in debugger with pytest
+# parallel processing for pytest
+RUN pip install pytest-pycharm pytest-xdist pytest-cov
+
+## setup to install ludwig
+#WORKDIR /app
+#COPY . /app
+#
+## install requirements for ludwig and setup for install of tfa_nightly
+#RUN pip install -e .
+
+WORKDIR /opt/project
+
+
