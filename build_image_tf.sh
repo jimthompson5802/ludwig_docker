@@ -12,7 +12,7 @@ docker build --progress ${progress} \
   --build-arg TENSORFLOW_VERSION=${tensorflow_version} \
   --build-arg LINUX_DISTRO=${linux_distro} \
 	-t ludwig_mydev:py${python_version}-tf${tensorflow_version} \
-	-f Dockerfile_mydev .
+	-f ./Dockerfile_mydev ../ludwig
 
 
 
