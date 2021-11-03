@@ -55,6 +55,9 @@ RUN \
     && pip install --timeout=60 --no-build-isolation --no-use-pep517 ConfigSpace \
     && pip install -e .[test]
 
+# install graph vizualization
+RUN pip install -U git+https://github.com/szagoruyko/pytorchviz.git@master
+
 
 # set working dir for the project folder
 WORKDIR /opt/project
