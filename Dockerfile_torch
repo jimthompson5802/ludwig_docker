@@ -58,6 +58,9 @@ RUN \
 # install graph vizualization
 RUN pip install -U git+https://github.com/szagoruyko/pytorchviz.git@master
 
+# install torchtest packages
+RUN pip install --upgrade torchtest
+
 
 # set working dir for the project folder
 WORKDIR /opt/project
