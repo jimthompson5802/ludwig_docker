@@ -64,6 +64,9 @@ RUN pip install --upgrade torchtest
 # to debug memory leak
 RUN pip install pympler
 
+# code quality checker
+RUN pip install pre-commit
+
 
 # set working dir for the project folder
 WORKDIR /opt/project
