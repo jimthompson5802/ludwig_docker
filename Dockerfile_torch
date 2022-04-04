@@ -10,7 +10,8 @@ RUN apt-get -y update \
 # install other required tools
 RUN pip install \
     jupyterlab nbconvert ipywidgets \
-    mkdocs mkdocs-material \
+    mkdocs'<1.3' \
+    mkdocs-material mike Markdown>='3.0.1' \
     pydot pydotplus graphviz \
     matplotlib IProgress \
     nltk dill
