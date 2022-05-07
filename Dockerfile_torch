@@ -38,6 +38,11 @@ COPY . /app
 #    && mv requirements-temp requirements_horovod.txt
 
 
+# temporary fix for ray 1.11 bug with raytune metrics collection issue
+# issue with ray 1.12 running in a docker container
+RUN pip install ray==1.11.1
+
+
 ARG TORCH_VERSION=1.9.0
 ARG TORCH_VISION_VERSION=0.10.0
 ARG TORCH_AUDIO_VERSION=0.9.0
@@ -55,6 +60,7 @@ RUN \
       pytorch-lightning==1.4.4 \
     && pip install --timeout=60 --no-build-isolation --no-use-pep517 ConfigSpace \
     && pip install -e .[test]
+
 
 # install graph vizualization
 RUN pip install -U git+https://github.com/szagoruyko/pytorchviz.git@master
