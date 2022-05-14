@@ -9,7 +9,7 @@ progress=${3:-auto}
   docker build --progress ${progress} \
   --build-arg PYTHON_VERSION=${python_version} \
   --build-arg LINUX_DISTRO=${linux_distro} \
-	-t ludwig_mydev:py${python_version} \
+	-t ludwig_torch:py${python_version} \
 	-f ./Dockerfile_torch ../ludwig
 
 
