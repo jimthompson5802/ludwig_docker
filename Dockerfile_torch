@@ -24,41 +24,19 @@ RUN pip install pytest-pycharm pytest-xdist pytest-cov
 WORKDIR /app
 COPY . /app
 
-# remove baseline torc version from requirements files
-# to allow Torch version specified for this build
-#RUN cat requirements.txt | sed -e '/^torch[>=<]/d' -e '/^tensorflow[>=<]/d' \
-#        > requirements-temp \
-#        && mv requirements-temp requirements.txt \
-#      cat requirements_image.txt | sed -e '/^torchvision[>=<]/d' > requirements-temp \
-#            && mv requirements-temp requirements_image.txt \
-#      cat requirements_audio.txt | sed -e '/^torchaudio[>=<]/d' > requirements-temp \
-#        && mv requirements-temp requirements_audio.txt \
-#    && cat requirements_horovod.txt | \
-#      sed 's/\[pytorch\]//g' > requirements-temp \
-#    && mv requirements-temp requirements_horovod.txt
-
 
 # temporary fix for ray 1.11 bug with raytune metrics collection issue
 # issue with ray 1.12 running in a docker container
 RUN pip install ray==1.11.1
 
 
-ARG TORCH_VERSION=1.9.0
-ARG TORCH_VISION_VERSION=0.10.0
-ARG TORCH_AUDIO_VERSION=0.9.0
 ENV HOROVOD_WITHOUT_TENSORFLOW=1
 ENV HOROVOD_WITHOUT_MPI=1
 ENV HOROVOD_WITH_PYTORCH=1
 ENV HOROVOD_WITHOUT_MXNET=1
 ENV MAKEFLAGS="-j 12"
 # install ludwig and pre-reqs
-RUN \
-    echo -e "Using TORCH Version " ${TORCH_VERSION} "\n" \
-    && pip install --timeout=60 torch==${TORCH_VERSION} \
-      torchvision==${TORCH_VISION_VERSION} \
-      torchaudio==${TORCH_AUDIO_VERSION} \
-      pytorch-lightning==1.4.4 \
-    && pip install --timeout=60 --no-build-isolation --no-use-pep517 ConfigSpace \
+RUN pip install --timeout=60 --no-build-isolation --no-use-pep517 ConfigSpace \
     && pip install -e .[test]
 
 
