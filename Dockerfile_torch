@@ -24,20 +24,14 @@ RUN pip install pytest-pycharm pytest-xdist pytest-cov
 WORKDIR /app
 COPY . /app
 
-
-# temporary fix for ray 1.11 bug with raytune metrics collection issue
-# issue with ray 1.12 running in a docker container
-RUN pip install ray==1.11.1
-
-
 ENV HOROVOD_WITHOUT_TENSORFLOW=1
 ENV HOROVOD_WITHOUT_MPI=1
 ENV HOROVOD_WITH_PYTORCH=1
 ENV HOROVOD_WITHOUT_MXNET=1
 ENV MAKEFLAGS="-j 12"
 # install ludwig and pre-reqs
-RUN  pip install -e .[test]
-
+#RUN  pip install -e .[hyperopt,viz]
+RUN pip install -e .[test]
 
 # install graph vizualization
 RUN pip install -U git+https://github.com/szagoruyko/pytorchviz.git@master
