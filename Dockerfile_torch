@@ -39,6 +39,9 @@ RUN pip install -U git+https://github.com/szagoruyko/pytorchviz.git@master
 # install torchtest packages
 RUN pip install --upgrade torchtest
 
+# hugging face dataset package
+RUN pip install datasets
+
 # to debug memory leak
 RUN pip install pympler
 
