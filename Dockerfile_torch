@@ -31,7 +31,7 @@ ENV HOROVOD_WITHOUT_MXNET=1
 ENV MAKEFLAGS="-j 12"
 # install ludwig and pre-reqs
 #RUN  pip install -e .[hyperopt,viz]
-RUN pip install torch==1.13
+RUN pip install "torch>=1.10.0"
 RUN pip install -e .[test]
 
 # install graph vizualization
