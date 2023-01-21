@@ -1,6 +1,6 @@
 #!/bin/bash
 
-python_version=${1:-3.8}
+python_version=${1:-3.9}
 linux_distro=${2:-buster}
 
 # other valid value is 'plain'
