@@ -31,14 +31,14 @@ ENV HOROVOD_WITHOUT_MXNET=1
 ENV MAKEFLAGS="-j 12"
 # install ludwig and pre-reqs
 #RUN  pip install -e .[hyperopt,viz]
-RUN pip install "torch>=1.10.0" ray==2.1.0
+RUN pip install  ray==2.1.0
 RUN pip install -e .[test]
 
 # install graph vizualization
 RUN pip install -U git+https://github.com/szagoruyko/pytorchviz.git@master
 
 # install torchtest packages
-RUN pip install --upgrade torchtest
+RUN pip install --upgrade torchtest "torchmetrics>=0.11"
 
 # hugging face dataset package
 RUN pip install datasets
