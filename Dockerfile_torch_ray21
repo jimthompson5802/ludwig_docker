@@ -14,7 +14,8 @@ RUN pip install \
     mkdocs-material mike Markdown>='3.0.1' \
     pydot pydotplus graphviz \
     matplotlib IProgress \
-    nltk dill
+    nltk dill \
+    pympler pre-commit
 
 # install pycharm related test dependencies
 RUN pip install pytest-pycharm pytest-xdist pytest-cov
@@ -31,8 +32,9 @@ ENV HOROVOD_WITHOUT_MXNET=1
 ENV MAKEFLAGS="-j 12"
 # install ludwig and pre-reqs
 #RUN  pip install -e .[hyperopt,viz]
-RUN pip install  ray==2.1.0
-RUN pip install -e .[test]
+# need to install torch before ludwig to avoid install error with horovod
+RUN pip install  ray==2.1.0 torch \
+  && pip install -e .[test]
 
 # install graph vizualization
 RUN pip install -U git+https://github.com/szagoruyko/pytorchviz.git@master
@@ -42,13 +44,6 @@ RUN pip install --upgrade torchtest "torchmetrics>=0.11"
 
 # hugging face dataset package
 RUN pip install datasets
-
-# to debug memory leak
-RUN pip install pympler
-
-# code quality checker
-RUN pip install pre-commit
-
 
 # set working dir for the project folder
 WORKDIR /opt/project
