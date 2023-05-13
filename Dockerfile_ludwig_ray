@@ -1,16 +1,17 @@
 # Ludwig development environment based on official Ludwig docker image
-
-FROM ludwigai/ludwig-ray:latest
+# set base using ludwig master branch
+FROM ludwigai/ludwig-ray:master
 
 # setup for local ludwig install
 WORKDIR /app
 COPY . /app
 
-ENV HOROVOD_WITHOUT_TENSORFLOW=1
-ENV HOROVOD_WITHOUT_MPI=1
-ENV HOROVOD_WITH_PYTORCH=1
-ENV HOROVOD_WITHOUT_MXNET=1
-ENV MAKEFLAGS="-j 12"
+# TODO: do we need this?
+#ENV HOROVOD_WITHOUT_TENSORFLOW=1
+#ENV HOROVOD_WITHOUT_MPI=1
+#ENV HOROVOD_WITH_PYTORCH=1
+#ENV HOROVOD_WITHOUT_MXNET=1
+#ENV MAKEFLAGS="-j 12"
 
 RUN pip install -e .[test]
 
@@ -20,7 +21,7 @@ RUN pip install -e .[test]
 RUN pip install \
     jupyterlab nbconvert ipywidgets \
     mkdocs'<1.3' \
-    mkdocs-material mike Markdown>='3.0.1' \
+    mkdocs-material mike Markdown'>=3.0.1' \
     pydot pydotplus graphviz \
     matplotlib IProgress \
     nltk dill \
