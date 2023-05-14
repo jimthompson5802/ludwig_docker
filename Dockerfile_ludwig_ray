@@ -1,6 +1,7 @@
 # Ludwig development environment based on official Ludwig docker image
+ARG BASE_IMAGE_TAG=master
 # set base using ludwig master branch
-FROM ludwigai/ludwig-ray:master
+FROM ludwigai/ludwig-ray:${BASE_IMAGE_TAG}
 
 # setup for local ludwig install
 WORKDIR /app
