@@ -1,5 +1,5 @@
 # Ludwig development environment based on official Ludwig docker image
-ARG BASE_IMAGE_TAG=master
+ARG BASE_IMAGE_TAG=nightly
 # set base using ludwig master branch
 FROM ludwigai/ludwig-ray:${BASE_IMAGE_TAG}
 
@@ -17,26 +17,26 @@ COPY . /app
 ###
 ## install other required tools
 ###
-RUN pip install \
-    jupyterlab nbconvert ipywidgets \
-    mkdocs'<1.3' \
-    mkdocs-material mike Markdown'>=3.0.1' \
-    pydot pydotplus graphviz \
-    matplotlib IProgress \
-    nltk dill \
-    pympler pre-commit
+#RUN pip install \
+#    jupyterlab nbconvert ipywidgets \
+#    mkdocs'<1.3' \
+#    mkdocs-material mike Markdown'>=3.0.1' \
+#    pydot pydotplus graphviz \
+#    matplotlib IProgress \
+#    nltk dill \
+#    pympler pre-commit
 
 ## install pycharm related test dependencies
-RUN pip install pytest-pycharm pytest-xdist pytest-cov
+#RUN pip install pytest-pycharm pytest-xdist pytest-cov
 
 ## install graph vizualization
-RUN pip install -U git+https://github.com/szagoruyko/pytorchviz.git@master
+#RUN pip install -U git+https://github.com/szagoruyko/pytorchviz.git@master
 #
 ## install torchtest packages
-RUN pip install --upgrade torchtest "torchmetrics>=0.11"
+#RUN pip install --upgrade torchtest "torchmetrics>=0.11"
 #
 ## hugging face dataset package
-RUN pip install datasets
+#RUN pip install datasets
 
 # set working dir for the project folder
 WORKDIR /opt/project
