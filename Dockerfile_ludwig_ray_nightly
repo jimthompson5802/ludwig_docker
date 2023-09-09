@@ -1,7 +1,5 @@
-# Ludwig development environment based on official Ludwig docker image
-ARG BASE_IMAGE_TAG=nightly
-# set base using ludwig master branch
-FROM ludwigai/ludwig-ray:${BASE_IMAGE_TAG}
+# Ludwig development environment based on torch nightly
+FROM python:3.10.13-bullseye
 
 # setup for local ludwig install
 WORKDIR /app
@@ -13,6 +11,21 @@ COPY . /app
 #ENV HOROVOD_WITH_PYTORCH=1
 #ENV HOROVOD_WITHOUT_MXNET=1
 #ENV MAKEFLAGS="-j 12"
+
+RUN apt-get update && apt-get install -y \
+    git \
+    libsndfile1 \
+    build-essential \
+    g++ \
+    cmake \
+    ffmpeg \
+    wget
+
+RUN pip install --pre torch torchvision torchaudio \
+    --index-url https://download.pytorch.org/whl/nightly/cpu \
+    && pip install ray[default,data,server,tune]==2.3.1
+
+RUN pip install -e .[test]
 
 ###
 ## install other required tools

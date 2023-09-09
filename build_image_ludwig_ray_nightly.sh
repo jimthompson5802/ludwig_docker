@@ -11,5 +11,5 @@ progress=${2:-auto}
 docker build --progress ${progress} \
   --build-arg BASE_IMAGE_TAG=${tag} \
 	-t ludwig-ray:${tag} \
-	-f ./Dockerfile_ludwig_ray_nightly .
+	-f ./Dockerfile_ludwig_ray_nightly ../ludwig
 
